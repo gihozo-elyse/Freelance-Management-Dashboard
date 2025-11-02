@@ -28,7 +28,7 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
     },
     {
       label: "Total Revenue",
-      value: `$${stats.totalRevenue.toLocaleString()}`,
+      value: `RWF ${stats.totalRevenue.toLocaleString()}`,
       icon: "💰"
     }
   ];

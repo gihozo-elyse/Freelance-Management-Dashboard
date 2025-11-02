@@ -67,7 +67,7 @@ function ProjectCard({
           <h3 className="font-bold text-lg text-gray-900">{project.title}</h3>
           <p className="text-sm text-gray-800">Client: {clientName}</p>
         </div>
-        <p className="font-bold text-xl text-gray-900">${project.budget.toLocaleString()}</p>
+        <p className="font-bold text-xl text-gray-900">RWF {project.budget.toLocaleString()}</p>
       </div>
 
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

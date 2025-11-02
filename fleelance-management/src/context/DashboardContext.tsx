@@ -1,19 +1,20 @@
-import { createContext, useContext, useReducer, type ReactNode } from 'react';
+
+import { createContext, useContext, useReducer, type ReactNode, type Dispatch } from 'react';
 import type { DashboardState, DashboardAction, Payment } from '../types';
 
 const initialState: DashboardState = {
   clients: [
     {
       id: "1",
-      name: "Acme Corp",
+      name: "kira hospital",
       country: "United States",
-      email: "contact@acme.com"
+      email: "kira@gmail.com"
     },
     {
       id: "2",
-      name: "Global Tech",
-      country: "Germany",
-      email: "info@globaltech.de"
+      name: "inzora shophub",
+      country: "Rwanda",
+      email: "inzoragmail.com"
     }
   ],
   projects: [
@@ -21,7 +22,7 @@ const initialState: DashboardState = {
       id: "1",
       clientId: "1",
       title: "E-commerce Website",
-      budget: 5000,
+      budget: 5000000,
       status: "in-progress",
       paymentStatus: "unpaid"
     },
@@ -29,7 +30,7 @@ const initialState: DashboardState = {
       id: "2",
       clientId: "2",
       title: "Mobile App Development",
-      budget: 8000,
+      budget: 8000000,
       status: "completed",
       paymentStatus: "paid"
     }
@@ -37,7 +38,7 @@ const initialState: DashboardState = {
   payments: [
     {
       projectId: "2",
-      amount: 8000,
+      amount: 8000000,
       date: new Date().toISOString()
     }
   ]
@@ -84,7 +85,7 @@ function dashboardReducer(state: DashboardState, action: DashboardAction): Dashb
         )
       };
 
-    case "MARK_PROJECT_PAID":
+    case "MARK_PROJECT_PAID": {
       const { projectId, amount } = action.payload;
       const existingPayment = state.payments.find(p => p.projectId === projectId);
       
@@ -107,6 +108,7 @@ function dashboardReducer(state: DashboardState, action: DashboardAction): Dashb
             : project
         )
       };
+    }
 
     case "UPDATE_PROJECT_STATUS":
       return {
@@ -125,8 +127,8 @@ function dashboardReducer(state: DashboardState, action: DashboardAction): Dashb
 
 const DashboardContext = createContext<{
   state: DashboardState;
-  dispatch: React.Dispatch<DashboardAction>;
-} | null>(null);
+  dispatch: Dispatch<DashboardAction>;
+} | undefined>(undefined);
 
 export function DashboardProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(dashboardReducer, initialState);
@@ -140,7 +142,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
 
 export function useDashboard() {
   const context = useContext(DashboardContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error("useDashboard must be used within a DashboardProvider");
   }
   return context;

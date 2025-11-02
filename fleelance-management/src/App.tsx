@@ -5,7 +5,8 @@ import { ClientCard } from './components/ClientCard';
 import { ProjectList } from './components/ProjectList';
 import { Sidebar } from './components/Sidebar';
 import { calculateStats, findClientById } from './utils/helpers';
-import type { ProjectStatus, Payment, Project, Client } from './types';
+import type { Payment, Project, Client } from './types';
+type ProjectStatus = Project['status'];
 
 type MainContentProps = {
   state: {
@@ -142,25 +143,22 @@ function MainContent({ state, onMarkAsPaid, onStatusChange }: MainContentProps) 
   );
 }
 
-function DashboardView({ stats }: { stats: any }) {
+import { DashboardStats } from './components/DashboardStats';
+
+function DashboardView({ stats }: { stats: ReturnType<typeof calculateStats> }) {
+  // Ensure all required properties have values
+  const safeStats = {
+    totalProjects: stats?.totalProjects || 0,
+    paidProjects: stats?.paidProjects || 0,
+    unpaidProjects: stats?.unpaidProjects || 0,
+    totalClients: stats?.totalClients || 0,
+    totalRevenue: stats?.totalRevenue || 0
+  };
+
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {Object.entries(stats).map(([key, value]) => (
-          <div 
-            key={key} 
-            className="bg-yellow-400 p-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
-          >
-            <h3 className="text-lg font-medium text-black capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</h3>
-            <p className="mt-2 text-3xl font-bold text-gray-900">
-              {typeof value === 'number' && key.toLowerCase().includes('revenue') ? 
-                `$${value.toLocaleString()}` : 
-                value as any
-              }
-            </p>
-          </div>
-        ))}
-      </div>
+    <div className="space-y-6 p-4">
+      <h2 className="text-2xl font-bold text-yellow-100 mb-6">Dashboard Overview</h2>
+      <DashboardStats stats={safeStats} />
     </div>
   );
 }
@@ -199,7 +197,7 @@ function PaymentView({ payments, projects, clients }: { payments: Payment[], pro
                     <td className="py-4 px-4 text-white font-medium">{title}</td>
                     <td className="py-4 px-4 text-yellow-100">{clientName}</td>
                     <td className="py-4 px-4 font-bold text-yellow-300">
-                      ${payment.amount.toFixed(2)}
+                      RWF {payment.amount.toFixed(2)}
                     </td>
                     <td className="py-4 px-4 text-yellow-100">
                       {new Date(payment.date).toLocaleDateString()}
