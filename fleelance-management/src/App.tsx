@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { Sidebar } from './Sidebar';
+import { Sidebar } from './components/Sidebar';
 
 // Main App component that wraps everything with Router
 function AppWrapper() {
@@ -52,7 +52,13 @@ function App() {
         <main className="flex-1 overflow-y-auto bg-black p-4 md:p-8">
           <div className="max-w-7xl mx-auto text-yellow-100">
             <Routes>
-              <Route path="/dashboard" element={<div>Dashboard Content</div>} />
+              <Route path="/dashboard" element={<ProjectList 
+                    projects={filteredProjects}
+                    clients={state.clients}
+                    onMarkAsPaid={onMarkAsPaid}
+                    onStatusChange={onStatusChange}
+                  />} 
+                  />
               <Route path="/projects" element={<div>Projects Content</div>} />
               <Route path="/clients" element={<div>Clients Content</div>} />
               <Route path="/payments" element={<div>Payments Content</div>} />
@@ -63,5 +69,28 @@ function App() {
     </div>
   );
 }
+function DashboardView({ stats }: { stats: any }) {
+  return (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {Object.entries(stats).map(([key, value]) => (
+          <div 
+            key={key} 
+            className="bg-yellow-400 p-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+          >
+            <h3 className="text-lg font-medium text-black capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</h3>
+            <p className="mt-2 text-3xl font-bold text-gray-900">
+              {typeof value === 'number' && key.toLowerCase().includes('revenue') ? 
+                `$${value.toLocaleString()}` : 
+                value as any
+              }
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 
 export default AppWrapper;

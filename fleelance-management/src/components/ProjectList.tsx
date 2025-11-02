@@ -38,7 +38,7 @@ function Select({ value, onChange, options }: {
   );
 }
 
-// ProjectCard component
+
 function ProjectCard({ 
   project, 
   clientName,
