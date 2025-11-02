@@ -101,5 +101,5 @@ fleelance-management/
 
 ## 🌐 Deployment
 
-[Live Demo](#) (Add your deployment link here)
+[Live Demo](#) (https://freelance-management-dashboard-gwtr.vercel.app/)
 
