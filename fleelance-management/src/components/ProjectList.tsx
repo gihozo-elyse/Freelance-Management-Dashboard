@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import type { Project, ProjectStatus, PaymentStatus } from '../types';
 
@@ -16,6 +17,7 @@ const statusOptions = [
   { value: 'completed', label: 'Completed' }
 ];
 
+
 function Select({ value, onChange, options }: {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -25,10 +27,14 @@ function Select({ value, onChange, options }: {
     <select
       value={value}
       onChange={onChange}
-      className="border rounded p-2 text-sm min-w-[120px]"
+      className="bg-black text-yellow-400 border border-yellow-500 rounded p-2 text-sm min-w-[120px] focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
     >
       {options.map(option => (
-        <option key={option.value} value={option.value}>
+        <option 
+          key={option.value} 
+          value={option.value}
+          className="bg-black text-yellow-400 hover:bg-yellow-800"
+        >
           {option.label}
         </option>
       ))}
@@ -109,6 +115,7 @@ function ProjectCard({
     </div>
   );
 }
+
 
 function StatusBadge({ status }: { status: ProjectStatus | PaymentStatus }) {
   const colorMap = {
