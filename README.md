@@ -97,7 +97,7 @@ fleelance-management/
 
 ## 📸 Screenshots
 
-![Dashboard Preview](/screenshots/dashboard-preview.png)
+![Dashboard Preview](fleelance-management/public/scrn.png)
 
 ## 🌐 Deployment
 
