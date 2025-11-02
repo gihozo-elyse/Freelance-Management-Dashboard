@@ -7,7 +7,7 @@ const initialState: DashboardState = {
     {
       id: "1",
       name: "kira hospital",
-      country: "United States",
+      country: "burundi",
       email: "kira@gmail.com"
     },
     {
