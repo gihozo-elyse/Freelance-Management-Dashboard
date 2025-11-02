@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import type { Project, ProjectStatus, PaymentStatus } from '../types';
-import { getStatusColor } from '../utils/helpers';
 
 type Props = {
   projects: Project[];
@@ -17,7 +16,6 @@ const statusOptions = [
   { value: 'completed', label: 'Completed' }
 ];
 
-// Select component
 function Select({ value, onChange, options }: {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -112,7 +110,6 @@ function ProjectCard({
   );
 }
 
-// StatusBadge component
 function StatusBadge({ status }: { status: ProjectStatus | PaymentStatus }) {
   const colorMap = {
     'pending': 'bg-yellow-200 text-yellow-900',

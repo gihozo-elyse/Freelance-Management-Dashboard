@@ -1,6 +1,5 @@
 import type { Client, Project, DashboardState, ProjectStatus, PaymentStatus, DashboardStats } from '../types';
 
-// Count paid vs unpaid projects
 export function countPaymentStatus(projects: Project[]): { paid: number; unpaid: number } {
   return projects.reduce(
     (acc, project) => {
@@ -15,12 +14,10 @@ export function countPaymentStatus(projects: Project[]): { paid: number; unpaid:
   );
 }
 
-// Find client by ID safely with type narrowing
 export function findClientById(clients: Client[], clientId: string): Client | undefined {
   return clients.find(client => client.id === clientId);
 }
 
-// Record a new payment with validation
 export function recordPayment(
   projectId: string, 
   amount: number, 
@@ -43,7 +40,6 @@ export function recordPayment(
   return { isValid: true };
 }
 
-// Filter projects by status or payment state
 export function filterProjects(
   projects: Project[], 
   filters: { status?: ProjectStatus; paymentStatus?: PaymentStatus }
@@ -55,7 +51,6 @@ export function filterProjects(
   });
 }
 
-// Search clients or projects by name (generic function)
 export function searchItems<T extends { name?: string; title?: string }>(
   items: T[], 
   query: string
@@ -69,7 +64,6 @@ export function searchItems<T extends { name?: string; title?: string }>(
   });
 }
 
-// Calculate dashboard statistics
 export function calculateStats(state: DashboardState): DashboardStats {
   const { paid, unpaid } = countPaymentStatus(state.projects);
   const totalRevenue = state.payments.reduce((sum, payment) => sum + payment.amount, 0);
@@ -83,7 +77,6 @@ export function calculateStats(state: DashboardState): DashboardStats {
   };
 }
 
-// Get status color for conditional styling
 export function getStatusColor(status: ProjectStatus | PaymentStatus): string {
   switch (status) {
     case "completed":

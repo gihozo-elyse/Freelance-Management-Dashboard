@@ -89,7 +89,7 @@ function dashboardReducer(state: DashboardState, action: DashboardAction): Dashb
       const existingPayment = state.payments.find(p => p.projectId === projectId);
       
       if (existingPayment) {
-        return state; // Already paid
+        return state;
       }
 
       const newPayment: Payment = {

@@ -17,7 +17,7 @@ export interface Project {
 export interface Payment {
   projectId: string;
   amount: number;
-  date: string; // ISO format
+  date: string;
 }
 
 export interface DashboardState {
@@ -29,7 +29,6 @@ export interface DashboardState {
 export type ProjectStatus = Project["status"];
 export type PaymentStatus = Project["paymentStatus"];
 
-// Discriminated union for actions
 export type DashboardAction =
   | { type: "ADD_CLIENT"; payload: Client }
   | { type: "UPDATE_CLIENT"; payload: Client }
